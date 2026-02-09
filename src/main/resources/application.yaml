@@ -23,7 +23,7 @@ Spring:
 
 envio:
   email:
-    remetente:
+    remetente: '
     nomeRemetente:
 
 server:
