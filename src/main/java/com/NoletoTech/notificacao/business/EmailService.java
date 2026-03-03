@@ -1,5 +1,6 @@
 package com.NoletoTech.notificacao.business;
 
+import com.NoletoTech.notificacao.business.dto.ComunicacaoOutDTO;
 import com.NoletoTech.notificacao.business.dto.TarefasDTO;
 import com.NoletoTech.notificacao.infrastructure.exceptions.EmailException;
 import jakarta.mail.MessagingException;
@@ -51,4 +52,27 @@ public class EmailService {
             throw new EmailException("Erro ao enviar email ", e.getCause());
         }
     }
-}
+
+    public void enviaComunicacao(ComunicacaoOutDTO dto) {
+        try {
+            MimeMessage mensagem = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mensagem, true, "UTF-8");
+
+            helper.setTo(dto.getEmailDestinatario());
+            helper.setSubject("Comunicação agendada");
+
+            Context context = new Context();
+            // Usando variáveis simples para o HTML
+            context.setVariable("nomeDestinatario", dto.getNomeDestinatario());
+            context.setVariable("mensagemTexto", dto.getMensagem()); // Alterado para não confundir com o objeto
+            context.setVariable("dataHoraEnvio", dto.getDataHoraEnvio());
+
+            String template = templateEngine.process("notificacao", context);
+            helper.setText(template, true);
+
+            javaMailSender.send(mensagem);
+        } catch (Exception e) {
+            throw new EmailException("Erro ao enviar email", e.getCause());
+        }
+    }
+    }

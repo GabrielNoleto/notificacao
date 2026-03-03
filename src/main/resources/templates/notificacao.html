@@ -2,52 +2,40 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Notificação de Tarefa</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-        }
-        .header {
-            text-align: center;
-            color: #333;
-        }
-        .content {
-            margin: 20px 0;
-        }
-        .footer {
-            text-align: center;
-            color: #555;
-        }
-        .important {
-            font-weight: bold;
-            color: #d9534f;
-        }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
+        .container { width: 80%; margin: auto; background: #fff; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px; }
+        .header { text-align: center; color: #333; border-bottom: 2px solid #f4f4f4; padding-bottom: 10px; }
+        .content { margin: 20px 0; line-height: 1.6; color: #555; }
+        .footer { text-align: center; color: #777; font-size: 12px; margin-top: 20px; }
+        .important { font-weight: bold; color: #d9534f; }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
-        <h1>Notificação de Tarefa</h1>
+        <h1 th:if="${nomeTarefa != null}">Notificação de Tarefa</h1>
+        <h1 th:if="${mensagemTexto != null}">Comunicado Agendado</h1>
     </div>
+
     <div class="content">
-        <p>Aviso: Sua tarefa <span class="important" th:text="${nomeTarefa}">Nome da Tarefa</span> está agendada para hoje às <span class="important" th:text="${dataEvento}">Horário</span>.</p>
-        <p>Confira sua descrição:</p>
-        <p th:text="${descricao}">Descrição da Tarefa</p>
+        <div th:if="${nomeTarefa != null}">
+            <p>Aviso: Sua tarefa <span class="important" th:text="${nomeTarefa}">Nome da Tarefa</span> está agendada para hoje às <span class="important" th:text="${dataEvento}">Horário</span>.</p>
+            <p>Confira sua descrição:</p>
+            <p th:text="${descricao}">Descrição da Tarefa</p>
+        </div>
+
+        <div th:if="${mensagemTexto != null}">
+            <p>Olá, <span class="important" th:text="${nomeDestinatario}">Nome</span>!</p>
+            <p>Você tem uma nova mensagem importante:</p>
+            <p style="background: #f9f9f9; padding: 10px; border-left: 4px solid #d9534f;" th:text="${mensagemTexto}">Conteúdo da Mensagem</p>
+            <p>Data programada: <span th:text="${dataHoraEnvio}">Data</span></p>
+        </div>
     </div>
+
     <div class="footer">
-        <p>Obrigado por usar nosso sistema de tarefas.</p>
+        <p th:if="${nomeTarefa != null}">Obrigado por usar nosso sistema de tarefas.</p>
+        <p th:if="${mensagemTexto != null}">© 2026 Sistema de Comunicações NoletoTech</p>
     </div>
 </div>
 </body>
