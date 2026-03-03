@@ -1,0 +1,12 @@
+package com.NoletoTech.notificacao.business.enums;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
+public enum StatusEnvioEnum {
+    PENDENTE,
+    ENVIADO,
+    CANCELADO;
+}
