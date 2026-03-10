@@ -12,6 +12,7 @@ Este serviço atua como um braço de suporte para o **BFF (Backend For Frontend)
 * **Spring Mail**: Integração com protocolos de envio.
 * **Thymeleaf**: Motor de templates para e-mails HTML dinâmicos.
 * **Lombok**: Redução de código boilerplate.
+* **docker**.
 
 ### 🛡️ Tratamento de Erros (Padronização)
 
